@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
     public List<Spawner> PlayerSpawners;
     public List<Spawner> AiSpawners;
     public List<GameObject> LevelZones;
-    //public List<TankPawn> Destroyedtanks;
-    //public List<HumanPawn> DeadPlayers;
+    public List<GameObject> Destroyedtanks;
+    public List<GameObject> Pickups;
     //public List<HumanPawn> DeadAIPlayers;
     //private GameObject newAiPawn;
     public static GameManager instance;
@@ -126,9 +126,17 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    //in multiplayer, on spawn this is used to place player two, next to player 1.
+    public void SetPlayer2Position()
+    {
+      if(MaxPlayers == 1) return;
+      if(players.Count > 1)
+      players[1].pawn.gameObject.transform.position = new Vector3 (players[0].pawn.gameObject.transform.position.x + 3,players[0].pawn.gameObject.transform.position.y,players[0].pawn.gameObject.transform.position.z + 3);
+    }
+    
     public void ResetSplitScreenCameraSettings()
     {
-         if(MaxPlayers == 1) return;
+        if(MaxPlayers == 1) return;
         for(int i = 0; i < players.Count; i++)
         {
             if(players[i].playerNumber == 1)

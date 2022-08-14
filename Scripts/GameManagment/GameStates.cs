@@ -102,7 +102,9 @@ public abstract class GameStates : MonoBehaviour
     {
       DeactivateAllStates();
       DeactivateCursorLock();
+      ReloadGame();
       GameOverStateObject.SetActive(true);
+      
     }
     public virtual void ActivateCredits()
     {
@@ -143,12 +145,21 @@ public abstract class GameStates : MonoBehaviour
   {
     Destroy(GameManager.instance.humans[i].gameObject);
   }
+  for(int i = 0; i < GameManager.instance.Pickups.Count; i++)
+  {
+    Destroy(GameManager.instance.Pickups[i].gameObject);
+  }
+  for(int i = 0; i < GameManager.instance.Destroyedtanks.Count; i++)
+  {
+    Destroy(GameManager.instance.Destroyedtanks[i].gameObject);
+  }
+  GameManager.instance.Pickups.Clear();
+  GameManager.instance.Destroyedtanks.Clear();
   GameManager.instance.humans.Clear();
   GameManager.instance.AiSpawners.Clear();
   GameManager.instance.PlayerSpawners.Clear();
   GameManager.instance.Waypointcluster.Clear();
   GameManager.instance.isMapGenerated = false;
-  //TODO: Also need to destroy level and all plays/enemies
  }
 
 
